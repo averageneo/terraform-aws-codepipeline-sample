@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo "Build on `date`"
+      - aws ecr get-login-password --region YOUR_AWS_REGION | docker login --username AWS --password-stdin <YOUR_ECR_URL>
+      # - npm run test
+  build:
+    commands:
+      - echo Building the Docker image ... | tee -a log.txt
+      - docker build -t <YOUR_ECR_URL>/tf-demo:latest . 2>&1 | tee -a log.txt
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push <YOUR_ECR_URL>/tf-demo:latest
+      - aws lambda update-function-code --function-name tf-demo-lambda --image-uri <YOUR_ECR_URL>/tf-demo:latest > /dev/null

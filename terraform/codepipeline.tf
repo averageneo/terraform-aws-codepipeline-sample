@@ -61,7 +61,7 @@ resource "aws_codepipeline" "codepipeline" {
         Capabilities = "CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND"
         RoleArn      = aws_iam_role.cloudformation-iam-role.arn
         TemplatePath = "source::cloudformation/template.yml"
-        ParameterOverrides = jsonencode(merge(var.CLOUDFORMATION_PARAMETERS, { "ImageUri" = "${aws_ecr_repository.ECR.repository_url}:${var.ERC_IMAGE_TAG}" }))
+        ParameterOverrides = jsonencode(merge(var.CLOUDFORMATION_PARAMETERS, { "ImageUri" = "${aws_ecr_repository.ECR.repository_url}:${var.ECR_IMAGE_TAG}" }))
       }
     }
   }

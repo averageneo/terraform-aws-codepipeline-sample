@@ -14,7 +14,7 @@ variable "CLOUDFORMATION_PARAMETERS" {
   type = map(any)
 }
 
-variable "ERC_IMAGE_TAG" {
+variable "ECR_IMAGE_TAG" {
   type = string
 }
 
